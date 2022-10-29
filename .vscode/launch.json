@@ -2,13 +2,11 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Spring Boot-JavaApplication<java>",
+            "name": "Launch JurnalApplication",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "com.example.java.JavaApplication",
-            "projectName": "java",
-            "args": "",
-            "envFile": "${workspaceFolder}/.env"
-        }
+            "mainClass": "com.marcinlk.jurnal.JurnalApplication",
+            "projectName": "jurnal"
+        },
+        {}
     ]
 }

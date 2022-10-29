@@ -1,10 +1,10 @@
-package com.example.java;
+package com.marcinlk.jurnal;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class JavaApplicationTests {
+class JurnalApplicationTests {
 
 	@Test
 	void contextLoads() {

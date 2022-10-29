@@ -1,27 +1,14 @@
-# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/java/.devcontainer/base.Dockerfile
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.245.2/containers/ubuntu/.devcontainer/base.Dockerfile
 
-# [Choice] Java version (use -bullseye variants on local arm64/Apple Silicon): 11, 17, 11-bullseye, 17-bullseye, 11-buster, 17-buster
-ARG VARIANT="17-bullseye"
-FROM mcr.microsoft.com/vscode/devcontainers/java:0-${VARIANT}
-
-# [Option] Install Maven
-ARG INSTALL_MAVEN="false"
-ARG MAVEN_VERSION=""
-# [Option] Install Gradle
-ARG INSTALL_GRADLE="false"
-ARG GRADLE_VERSION=""
-RUN if [ "${INSTALL_MAVEN}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install maven \"${MAVEN_VERSION}\""; fi \
-    && if [ "${INSTALL_GRADLE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/sdkman/bin/sdkman-init.sh && sdk install gradle \"${GRADLE_VERSION}\""; fi
-
-# [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
-ARG NODE_VERSION="none"
-RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
+# [Choice] Ubuntu version (use ubuntu-22.04 or ubuntu-18.04 on local arm64/Apple Silicon): ubuntu-22.04, ubuntu-20.04, ubuntu-18.04
+ARG VARIANT="jammy"
+FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends  wget build-essential libncursesw5-dev libssl-dev \
+    libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev python3-pip 
 
-
-# marcin
-# [Optional] Uncomment this line to install global node packages.
-# RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
+COPY requirements.txt /tmp/pip-tmp/
+RUN pip3 --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
+    && rm -rf /tmp/pip-tmp
