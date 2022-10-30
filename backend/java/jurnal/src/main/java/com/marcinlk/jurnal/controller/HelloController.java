@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcinlk.jurnal.dto.ResponseDto;
 import com.marcinlk.jurnal.exception.InvalidUserException;
 import com.marcinlk.jurnal.model.User;
 
@@ -24,9 +23,8 @@ public class HelloController {
     // LoggerFactory.getLogger(HelloController.class);
 
     @GetMapping("/hello")
-    public ResponseEntity<ResponseDto> sayHello() {
+    public ResponseEntity<List<User>> sayHello() {
         log.info("test loggera");
-        int xx = 1 / 0;
 
         // throw new InvalidUserException("message2");
         User u = new User(1, "2", "3", "4");
@@ -36,9 +34,7 @@ public class HelloController {
         x.add(u);
         x.add(u);
 
-        ResponseDto r = new ResponseDto("2", x);
-
-        return new ResponseEntity<ResponseDto>(r, HttpStatus.OK);
+        return new ResponseEntity<List<User>>(x, HttpStatus.OK);
     }
 
     @ExceptionHandler(value = InvalidUserException.class)
