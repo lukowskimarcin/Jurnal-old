@@ -15,17 +15,7 @@
 		"vscode": {
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
-				"ms-azuretools.vscode-docker",
-				"vscjava.vscode-java-debug",
-				"VisualStudioExptTeam.vscodeintellicode",
-				"VisualStudioExptTeam.intellicode-api-usage-examples",
-				"Zignd.html-css-class-completion",
-				"christian-kohler.path-intellisense",
-				"ms-python.vscode-pylance",
-				"jawandarajbir.react-vscode-extension-pack",
-				"Pivotal.vscode-boot-dev-pack",
-				"infeng.vscode-react-typescript",
-				"humao.rest-client"
+				"ms-azuretools.vscode-docker"
 			]
 		}
 	},
