@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch GatewayApplication",
+            "request": "launch",
+            "mainClass": "com.marcinlk.gateway.GatewayApplication",
+            "projectName": "gateway"
+        },
+        {
+            "type": "java",
+            "name": "Launch DiscoveryApplication",
+            "request": "launch",
+            "mainClass": "com.marcinlk.discovery.DiscoveryApplication",
+            "projectName": "discovery"
+        },
+        {
+            "type": "java",
             "name": "Launch JurnalApplication",
             "request": "launch",
             "mainClass": "com.marcinlk.jurnal.JurnalApplication",

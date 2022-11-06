@@ -22,8 +22,12 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	"forwardPorts": [
 		1337,
+		5000,
+		5432,
 		8080,
 		8081,
+		8082,
+		8083,
 		8088
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
