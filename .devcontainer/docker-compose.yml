@@ -17,12 +17,6 @@ services:
     # Overrides default command so things don't shut down after the process ends.
     entrypoint: /usr/local/share/docker-init.sh
     command: sleep infinity
-    # Uncomment the next four lines if you will use a ptrace-based debuggers like C++, Go, and Rust.
-    # cap_add:
-    #  - SYS_PTRACE
-    # security_opt:
-    #   - seccomp:unconfined
-
     # Uncomment the next line to use a non-root user for all processes.
     # user: vscode
 
@@ -41,19 +35,53 @@ services:
       - /home/jenkins_compose/jenkins_configuration:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
 
-  db:
-    hostname: postgres_db
+  jurnal-db:
     image: postgres:15
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
     ports:
-      - 5432:5432
-
+      - 5433:5432
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: jurnal
       POSTGRES_PASSWORD: postgres
+
+  keycloak-db:
+    image: postgres:15
+    restart: unless-stopped
+    volumes:
+      - keycloak-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: keycloak
+
+  keycloak:
+    depends_on:
+      - keycloak-db
+    container_name: keycloak
+    hostname: keycloak
+    image: quay.io/keycloak/keycloak:latest
+    ports:
+      - 28080:8080
+    command: start-dev
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: keycloak-db
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: keycloak
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
 
 volumes:
   postgres-data:
+    driver: local
+
+  keycloak-data:
+    driver: local
+  #https://www.keycloak.org/getting-started/getting-started-docker

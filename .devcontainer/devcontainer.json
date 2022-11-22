@@ -28,7 +28,8 @@
 		8081,
 		8082,
 		8083,
-		8088
+		8088,
+		28080
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "docker --version",

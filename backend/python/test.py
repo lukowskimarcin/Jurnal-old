@@ -1,19 +1,41 @@
-import MetaTrader5 as mt5
-# display data on the MetaTrader 5 package
-print("MetaTrader5 package author: ",mt5.__author__)
-print("MetaTrader5 package version: ",mt5.__version__)
+#https://blog.teclado.com/api-key-authentication-with-flask/
+from service import MetaTraderService
+import pprint
+import pandas as pd
+from datetime import datetime
+
+service = MetaTraderService()
+
+#pprint.pprint(service.get_symbols())
+#pprint.pprint(service.symbol_info('DJI30'))
+# pprint.pprint(service.symbol_info_tick('DJI30'))
+
+# Date of opening of the first bar from the requested sample. Set by the 'datetime' object or as a number of seconds elapsed since 1970.01.01. Required unnamed parameter.
+#rates = service.copy_rates_from('DJI30', 'H1', datetime.utcnow(), 10)
+# pprint.pprint(rates)
+
+#rates = service.copy_rates_from_pos('DJI30', 'M30')
+#pprint.pprint(rates[-1])
+#print(datetime.utcfromtimestamp(rates[-1][0]))
+
+#print("Margin needed: ", service.order_calc_margin('DJI30', 'SELL', 0.1), " USD" )
+#print("SELL 33500->33400 profit: ", service.order_calc_profit('DJI30', 'SELL', 0.1, 33500, 33400))
+#pprint.pprint(f'orders: {service.orders_get()}'  )
+
+
+#print(service.positions_get())
+
+
+print("====================================================")
+
+res = service.history_orders(datetime(2022,11,22), datetime(2022,11,24))
+#print(f'history_orders: {res}'  )
  
-# establish connection to the MetaTrader 5 terminal
-if not mt5.initialize():
-    print("initialize() failed, error code =",mt5.last_error())
-    quit()
- 
-# get the number of financial instruments
-symbols=mt5.symbols_total()
-if symbols>0:
-    print("Total symbols =",symbols)
-else:
-    print("symbols not found")
- 
-# shut down connection to the MetaTrader 5 terminal
-mt5.shutdown()
+sum = 0
+for order in res:
+    print(order)
+    print("\n")
+    sum = sum + order['profit']
+
+
+print(f"total profit: {sum} ")
