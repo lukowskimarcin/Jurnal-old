@@ -83,7 +83,23 @@ class MetaTraderService:
     def copy_rates_from_pos(self, symbol, timeframe, count=20):
         _timeframe = self.__map_timeframe(timeframe)
         rates = mt5.copy_rates_from_pos(symbol, _timeframe, 0, count)
-        return rates
+
+        result = []
+        for record in rates:
+            result.append(
+                {
+                     "time" : record[0],
+                     "open" : record[1],
+                     "high" : record[2],
+                     "low" : record[3],
+                     "close" : record[4],
+                     "tickVolume" : record[5],
+                     "spread" : record[6],
+                     "realVolume" : record[7]
+                }
+            )
+
+        return result
 
 
     def copy_rates_range(self, symbol, timeframe, utc_from, utc_to):
