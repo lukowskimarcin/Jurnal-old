@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @Slf4j
-@RequestMapping("api/v1")
+@RequestMapping("api/jurnal/v1")
 public class HelloController {
     // private static final Logger logger =
     // LoggerFactory.getLogger(HelloController.class);

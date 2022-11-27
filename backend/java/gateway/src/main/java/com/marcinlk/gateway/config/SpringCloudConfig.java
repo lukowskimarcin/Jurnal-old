@@ -11,9 +11,10 @@ public class SpringCloudConfig {
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route(r -> r.path("/api/v1/**")
-                        .uri("lb://JURNAL"))
-
+                .route(r -> r.path("/api/jurnal/v1/**")
+                        .uri("lb://JURNAL-SERVICE"))
+                .route(r -> r.path("/api/mt5/v1/**")
+                        .uri("lb://MT5-SERVICE"))
                 .build();
     }
 
